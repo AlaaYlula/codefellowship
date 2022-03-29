@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+.w3-button {width:150px; }
+</style>
+</head>
+<body>
+
+<ul class = "var">
+    <li class = "varItem"><a href="/login">Log In</a></li>
+    <li class = "varItem"><a href="/signup">Sign Up</a></li>
+    <li class = "varItem"><a href="/">Home</a></li>
+    <li class = "varItem"><a href="/hello">Hello</a></li>
+    <li class = "varItem">
+        <form action="/perform_logout" method="post">
+            <button class="w3-button w3-red logoutLblPos"  type="submit">Log Out</button>
+        </form>
+    </li>
+</ul>
+
+<h1> Hello </h1>
+<h2 th:text = "'Welcome ' + ${username}"> </h2>
+
+</body>
+</html>

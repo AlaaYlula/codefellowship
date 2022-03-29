@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up Page</title>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+.w3-button {width:150px; }
+</style>
+</head>
+<body>
+<ul class = "var">
+    <li class = "varItem"><a href="/login">Log In</a></li>
+    <li class = "varItem"><a href="/signup">Sign Up</a></li>
+    <li class = "varItem"><a href="/">Home</a></li>
+    <li class = "varItem"><a href="/hello">Hello</a></li>
+    <li class = "varItem">
+    <form action="/perform_logout" method="post">
+        <button class="w3-button w3-red logoutLblPos"  type="submit">Log Out</button>
+    </form>
+    </li>
+</ul>
+</br></br>
+<h2 th:text = "'Welcome ' + ${username}"> </h2>
+</br></br>
+
+<h1> Please Sign Up </h1>
+<div class="container">
+<form action="/signup" method="POST">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username">
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password">
+
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="firstName">
+
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="lastName">
+
+    <label for="dateOfBirth">Date of Birth</label>
+    <input type="text" id="dateOfBirth" name="dateOfBirth">
+
+    <label for="bio">Bio</label>
+    <input type="text" id="bio" name="bio">
+
+    <button type="submit">Sign Up</button>
+</form>
+</div>
+
+</body>
+
+</html>
