@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Sign Up Page</title>
@@ -15,11 +15,15 @@
     <li class = "varItem"><a href="/signup">Sign Up</a></li>
     <li class = "varItem"><a href="/">Home</a></li>
     <li class = "varItem"><a href="/hello">Hello</a></li>
-    <li class = "varItem">
-    <form action="/perform_logout" method="post">
-        <button class="w3-button w3-red logoutLblPos"  type="submit">Log Out</button>
-    </form>
-    </li>
+    <div sec:authorize="isAuthenticated()">
+       <!-- Text visible only to authenticated users. -->
+        <li class = "varItem">
+            <form action="/perform_logout" method="post">
+                <button class="w3-button w3-red logoutLblPos"  type="submit">Log Out</button>
+            </form>
+        </li>
+    </div>
+
 </ul>
 </br></br>
 <h2 th:text = "'Welcome ' + ${username}"> </h2>
