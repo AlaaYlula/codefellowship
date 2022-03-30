@@ -12,8 +12,10 @@
 <body>
 
 <ul class = "var">
-    <li class = "varItem"><a href="/login">Log In</a></li>
-    <li class = "varItem"><a href="/signup">Sign Up</a></li>
+    <div sec:authorize="isAnonymous()">
+        <li class = "varItem"><a href="/login">Log In</a></li>
+        <li class = "varItem"><a href="/signup">Sign Up</a></li>
+    </div>
     <li class = "varItem"><a href="/">Home</a></li>
     <li class = "varItem"><a href="/hello">Hello</a></li>
     <div sec:authorize="isAuthenticated()">
