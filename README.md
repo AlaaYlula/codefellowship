@@ -5,9 +5,11 @@ Use these dependencies
 So can use the spring security ( Authentication and authurization)  
   
 # The End Points  
-* **/login** : login Form sucess login redirect to the **/hello** end point, Otherwise **/login** again.   
-* **/signup** : signup Form, and then redirect to **/hello** end point.  
+* **/login** : login Form sucess login redirect to the **/myprofile** end point which shows the user information and his/her posts, Otherwise **/login** again.   
+* **/signup** : signup Form, and then redirect to */myprofile* end point.  
 * **/logout** : logout from the App.  
+* **/post** : the logged in user can add posts to his/her profile, and redirect it to the */myprofile*.
+* **/users** : the logged in user can select application user, and viewing the data about this User.  
 * **/** : the home page.  
 
 # WebSecurityConfig File  
@@ -24,7 +26,7 @@ So can use the spring security ( Authentication and authurization)
                 .formLogin()  
                 .loginPage("/login")  
                 .loginProcessingUrl("/perform_login") // process the login after submit  
-                .defaultSuccessUrl("/hello") // success login go to route /hello  
+                .defaultSuccessUrl("/myprofile") // success login go to route /hello  
                 .failureUrl("/login") // Failure login go back to login  
                 .and()  
                 .logout()  

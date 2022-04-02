@@ -38,6 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login*").permitAll() // any one can access
                 .antMatchers("/signup*").permitAll() // any one can access
+              //  .antMatchers("/users*").permitAll() // any one can access
+
                 .antMatchers("/").permitAll() // any one can access
                 .antMatchers("/style.css").permitAll()// any one can access
                 .anyRequest().authenticated()
@@ -45,7 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/perform_login") // process the login after submit
-                .defaultSuccessUrl("/hello") // success login go to route /hello
+                .defaultSuccessUrl("/myprofile") // success login go to route /myprofile
                 .failureUrl("/login") // Failure login go back to login
                 .and()
                 .logout()
