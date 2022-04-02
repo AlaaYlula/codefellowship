@@ -43,8 +43,7 @@
 
             <div class="container">
                 <label>Body: </label><span th:text="${post.body}"></span></br>
-                <label>Date: </label><span th:text="${post.postDate}"></span></br>
-
+                <label>Date: </label><span th:text="${#temporals.format(post.postDate, 'dd-MM-yyyy HH:mm')}"></span></br>
             </div>
         </li>
 
