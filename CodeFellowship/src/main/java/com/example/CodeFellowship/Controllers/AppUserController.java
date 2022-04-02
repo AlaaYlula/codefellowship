@@ -3,7 +3,6 @@ package com.example.CodeFellowship.Controllers;
 import com.example.CodeFellowship.Model.AppUser;
 import com.example.CodeFellowship.Repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -55,8 +54,8 @@ public class AppUserController {
     @PostMapping("/signup")
     public String signupUser(@RequestParam String username, @RequestParam String password,
                              @RequestParam String firstName , @RequestParam String lastName ,
-                             @RequestParam String dateOfBirth , @RequestParam String bio,Model model
-                        ,HttpServletRequest request
+                             @RequestParam String  dateOfBirth , @RequestParam String bio, Model model
+                        , HttpServletRequest request
     ){
         AppUser appuser = new AppUser(username,firstName,lastName,dateOfBirth,bio,encoder.encode(password));
         appUserRepository.save(appuser);
@@ -65,10 +64,15 @@ public class AppUserController {
             request.login(username, password);
             final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
             request.setAttribute("username",currentUser);
+
+            AppUser appUser = appUserRepository.findByUsername(currentUser);
+            model.addAttribute("postsList",appUser.getPosts());
+            model.addAttribute("userInfo",appUser);
+
         } catch (ServletException e) {
            // LOGGER.error("Error while login ", e);
         }
-        return "hello"; // change this from login to hello //
+        return "profile"; // change this from login to profile //
     }
     ////////////////////////////////// Home Page /////////////////////////////////////
     @GetMapping("/")
@@ -82,17 +86,37 @@ public class AppUserController {
         }
         return "home";
     }
-    ////////////////////////////////// Hello Page ////////////////////////////////////
-    @GetMapping("/hello")
+    ////////////////////////////////// my profile Page ////////////////////////////////////
+    @GetMapping("/myprofile")
     public String getHelloPage(HttpServletRequest request,Model model){
         //Read https://stackoverflow.com/questions/248562/when-using-spring-security-what-is-the-proper-way-to-obtain-current-username-i
         final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("username",currentUser);
         request.getAttribute("username");
-
-        return "hello";
+        AppUser appUser = appUserRepository.findByUsername(currentUser);
+        model.addAttribute("postsList",appUser.getPosts());
+        model.addAttribute("userInfo",appUser);
+        return "profile";
     }
     ///////////////////////////////// Log Out /////////////////////////
 
+////////////////////////////// Task 17 ///////////////////////////////
 
+    @GetMapping("/users")
+    public String GetUser(Model model){
+        model.addAttribute("usersList",appUserRepository.findAll());
+        final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("username",currentUser);
+
+        return "info";
+    }
+    @PostMapping("/users")
+    public String GetAlbumDetails(@RequestParam Integer userId, Model model) {
+        AppUser foundUser = appUserRepository.findById(userId).orElseThrow();
+        model.addAttribute("user1", foundUser);
+        model.addAttribute("usersList",appUserRepository.findAll());
+        final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        model.addAttribute("username",currentUser);
+        return "info";
+    }
 }

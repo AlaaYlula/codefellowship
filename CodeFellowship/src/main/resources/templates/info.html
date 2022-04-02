@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>user Information</title>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+.w3-button {width:150px; }
+</style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+</br></br>
+
+<h1> Application User's Information </h1>
+<div class="container">
+<form method="post" action="/users">
+    <select name="userId">
+        <option th:each="user : ${usersList}"
+                th:text="${user.username}"
+                th:value="${user.id}"
+                th:selected="${user.id}">
+
+        </option>
+    </select>
+    <button type="submit">Show User Information</button>
+</form>
+</div>
+<ul th:each="user: ${user1}">
+    <div class="user">
+        <li>
+            <img th:src="${user.profilePic}">
+
+            <div class="container">
+                <label>User Name : </label><span th:text="${user.username}"></span></br>
+                <label>First Name : </label><span th:text="${user.firstName}"></span></br>
+                <label>Last Name : </label><span th:text="${user.lastName}"></span></br>
+                <label>date Of Birth : </label><span th:text="${user.dateOfBirth}"></span></br>
+                <label>Bio : </label> <span th:text="${user.bio}"></span>  </br>
+            </div>
+        </li>
+
+    </div>
+    <p>**********************************************************</p>
+</ul>
+</body>
+</html>

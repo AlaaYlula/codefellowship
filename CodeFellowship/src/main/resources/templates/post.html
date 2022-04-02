@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Post</title>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+.w3-button {width:150px; }
+</style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<h1> Add Post </h1>
+<div class="container">
+    <form action="/post" method="POST">
+        <label for="body">Post</label>
+        <input type="text" id="body" name="body">
+
+        <button type="submit">Add Post</button>
+    </form>
+</div>
+</body>
+</html>

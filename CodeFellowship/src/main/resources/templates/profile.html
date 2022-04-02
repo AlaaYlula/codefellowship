@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+.w3-button {width:150px; }
+</style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+</br></br>
+
+
+<h1> Hello </h1>
+<h2 th:text = "'Welcome ' + ${username}"> </h2>
+
+<ul th:each="user: ${userInfo}">
+    <div class="user">
+        <li>
+            <img th:src="${user.profilePic}">
+
+            <div class="container">
+                <label>First Name : </label><span th:text="${user.firstName}"></span></br>
+                <label>Last Name : </label><span th:text="${user.lastName}"></span></br>
+                <label>Date Of Birth :  </label><span th:text="${user.dateOfBirth}"></span></br>
+                <label>Bio : </label><span th:text="${user.bio}"></span></br>
+
+            </div>
+        </li>
+
+    </div>
+    </br></br>
+    <p th:text = "'************************* '+  ${username} + ' Posts ***************************'"></p>
+    </br></br>
+
+</ul>
+<ul th:each="post: ${postsList}">
+    <div class="user">
+        <li>
+
+            <div class="container">
+                <label>Body: </label><span th:text="${post.body}"></span></br>
+                <label>Date: </label><span th:text="${post.postDate}"></span></br>
+
+            </div>
+        </li>
+
+    </div>
+    <p>**********************************************************</p>
+</ul>
+</body>
+</html>
