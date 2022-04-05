@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>user account</title>
+  <link th:href="@{/style.css}" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+.w3-button {width:150px; }
+</style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+</br></br>
+
+
+<h1> Hello </h1>
+
+<ul th:each="user: ${followingUser}">
+  <p th:text= "'************************* '+  ${user.username} + ' Account ***************************'">  </p>
+  <div class="user">
+    <li>
+      <img th:src="${user.profilePic}">
+      <div class="container">
+        <label>First Name : </label><span th:text="${user.firstName}"></span></br>
+        <label>Last Name : </label><span th:text="${user.lastName}"></span></br>
+        <label>Date Of Birth :  </label><span th:text="${user.dateOfBirth}"></span></br>
+        <label>Bio : </label><span th:text="${user.bio}"></span></br>
+
+        <!-- Read https://www.baeldung.com/spring-thymeleaf-conditionals -->
+        <div>
+          <td th:switch="${flag}">
+            <span th:case="'Me'"></span>
+            <!-- Check if the user followed or not -->
+            <span th:case="'true'" >
+               <form  method="post" action="/users/follow">
+                   <input type="hidden" th:value="${user.id}" name="user_id">
+                   <button type="submit">Follow</button>
+               </form>
+            </span>
+            <span th:case="'false'">
+              <form  method="post" action="/users/unfollow">
+                 <input type="hidden" th:value="${user.id}" name="user_id">
+                  <button  type="submit">UnFollow</button>
+               </form>
+            </span>
+            <div th:case="*"></div>
+          </td>
+        </div>
+      </div>
+    </li>
+  </div>
+</ul>
+  </br></br>
+  <p>*************************  Following ***************************</p>
+  </br></br>
+
+  <ul th:each="userFollowing: ${following}">
+    <div class="user">
+      <li>
+        <img th:src="${userFollowing.profilePic}">
+
+        <div class="container">
+          <label>First Name : </label><span th:text="${userFollowing.firstName}"></span></br>
+          <label>Last Name : </label><span th:text="${userFollowing.lastName}"></span></br>
+          <label>Date Of Birth :  </label><span th:text="${userFollowing.dateOfBirth}"></span></br>
+          <label>Bio : </label><span th:text="${userFollowing.bio}"></span></br>
+          <form  method="post" action="/users/account">
+            <input type="hidden" th:value="${userFollowing.id}" name="user_id">
+            <button  type="submit">Show Account</button>
+          </form>
+        </div>
+      </li>
+    </div>
+  </ul>
+  </br></br>
+  <p>*************************  Posts ***************************</p>
+  </br></br>
+
+<ul th:each="post: ${postsList}">
+  <div class="user">
+    <li>
+
+      <div class="container">
+        <label>Body: </label><span th:text="${post.body}"></span></br>
+        <label>Date: </label><span th:text="${#temporals.format(post.postDate, 'dd-MM-yyyy HH:mm')}"></span></br>
+      </div>
+    </li>
+  </div>
+  <p>**********************************************************</p>
+</ul>
+</body>
+</html>

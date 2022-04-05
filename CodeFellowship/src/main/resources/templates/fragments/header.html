@@ -19,14 +19,17 @@
         <div sec:authorize="isAnonymous()">
             <li class = "varItem"><a href="/login">Log In</a></li>
             <li class = "varItem"><a href="/signup">Sign Up</a></li>
-            <li class = "varItem"><a href="/myprofile">User Profile</a></li>
+            <!--<li class = "varItem"><a href="/myprofile">User Profile</a></li>-->
 
         </div>
-        <!-- <li class = "varItem"><a href="/hello">User profile</a></li> -->
         <li class = "varItem"><a href="/users">User Information</a></li>
 
         <div sec:authorize="isAuthenticated()">
             <!-- Text visible only to authenticated users. -->
+
+            <li class = "varItem"><a href="/users/follow">Users</a></li>
+            <li class = "varItem"><a href="/feed">Users Posts</a></li>
+
             <li class="varItem" > <a th:text = "${username} + ' Profile'" href="/myprofile"></a> </li>
             <li class = "varItem"><a href="/post">Add post</a></li>
             <li class = "varItem">
@@ -34,6 +37,7 @@
                     <button class="w3-button w3-red logoutLblPos"  type="submit">Log Out</button>
                 </form>
             </li>
+
         </div>
     </ul>
 </header>

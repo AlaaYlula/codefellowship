@@ -34,8 +34,22 @@ public class AppUser implements UserDetails {
 
     private String profilePic;
 
+    private String flag; // added to check if the user followed or not
+
     @OneToMany(mappedBy = "appUser")
     List<Post> posts;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_user",
+            joinColumns = {@JoinColumn(name = "from_id")},
+            inverseJoinColumns = {@JoinColumn(name = "to_id")}
+    )
+    public List<AppUser> following;
+
+    @ManyToMany(mappedBy = "following", fetch = FetchType.EAGER)
+    public List<AppUser> followers;
+
 
     public AppUser() {
     }
@@ -56,6 +70,30 @@ public class AppUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public List<AppUser> getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(List<AppUser> following) {
+        this.following = following;
+    }
+
+    public List<AppUser> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(List<AppUser> followers) {
+        this.followers = followers;
     }
 
     public void setPassword(String password) {

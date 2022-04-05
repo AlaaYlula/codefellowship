@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>user Information</title>
+    <title>All Users</title>
     <link th:href="@{/style.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <style>
@@ -13,21 +13,7 @@
 <div th:replace="fragments/header :: header"></div>
 </br></br>
 
-<h1> Application User's Information </h1>
-<div class="user">
-<form method="post" action="/users">
-    <select name="userId">
-        <option th:each="user : ${usersList}"
-                th:text="${user.username}"
-                th:value="${user.id}"
-                th:selected="${user.id}">
-
-        </option>
-    </select>
-    <button type="submit">Show User Information</button>
-</form>
-</div>
-<ul th:each="user: ${user1}">
+<ul th:each="user: ${usersList}">
     <div class="user">
         <li>
             <img th:src="${user.profilePic}">
@@ -38,6 +24,25 @@
                 <label>Last Name : </label><span th:text="${user.lastName}"></span></br>
                 <label>date Of Birth : </label><span th:text="${user.dateOfBirth}"></span></br>
                 <label>Bio : </label> <span th:text="${user.bio}"></span>  </br>
+                <p th:text="${flag}"></p>
+                <!-- Check if the user followed or not -->
+                <div>
+                    <form  th:if="${user.flag == 'true'}" method="post" action="/users/follow">
+                        <input type="hidden" th:value="${user.id}" name="user_id">
+                        <button  type="submit">Follow</button>
+                    </form>
+                    <form  th:unless="!${user.flag == 'false'}" method="post" action="/users/unfollow">
+                        <input type="hidden" th:value="${user.id}" name="user_id">
+                        <button type="submit">UnFollow</button>
+                    </form>
+                </div>
+
+                <form  method="post" action="/users/account">
+                    <input type="hidden" th:value="${user.id}" name="user_id">
+                    <button  type="submit">Show Account</button>
+                </form>
+
+
             </div>
         </li>
 
