@@ -7,9 +7,15 @@ So can use the spring security ( Authentication and authurization)
 # The End Points  
 * **/login** : login Form sucess login redirect to the **/myprofile** end point which shows the user information and his/her posts, Otherwise **/login** again.   
 * **/signup** : signup Form, and then redirect to */myprofile* end point.  
-* **/logout** : logout from the App.  
+* **/logout** : logout from the App. 
+* **/myprofile** : show the information for the logged user, his/her posts, and the users who is following.   
 * **/post** : the logged in user can add posts to his/her profile, and redirect it to the */myprofile*.
 * **/users** : the logged in user can select application user, and viewing the data about this User.  
+  
+* **/users/follow** : List for all the application user with follow and unfollow button, when click on follow will redirect to the */myprofile. And show Account button to show the profile for specific user. and will redirect to */users/account*.  
+* **/users/account** : show the information, posts and the following list for specific user.     
+* **users/unfollow** : when click unfollow button will remove this user from the following List for the loggedin user, and redirect to the */myprofile*.  
+* **/feed** : show the posts which belongs to the users which the loggedin user follow.  
 * **/** : the home page.  
 
 # WebSecurityConfig File  

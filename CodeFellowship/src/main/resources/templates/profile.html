@@ -32,11 +32,42 @@
         </li>
 
     </div>
+
+    </br></br>
+    <p th:text = "'************************* '+  ${username} + ' Following ***************************'"></p>
+    </br></br>
+
+    <ul th:each="userFollowing: ${followingList}">
+        <div class="user">
+            <li>
+                <img th:src="${userFollowing.profilePic}">
+
+                <div class="container">
+                    <label>First Name : </label><span th:text="${userFollowing.firstName}"></span></br>
+                    <label>Last Name : </label><span th:text="${userFollowing.lastName}"></span></br>
+                    <label>Date Of Birth :  </label><span th:text="${userFollowing.dateOfBirth}"></span></br>
+                    <label>Bio : </label><span th:text="${userFollowing.bio}"></span></br>
+                    <form method="post" action="/users/unfollow">
+                        <input type="hidden" th:value="${userFollowing.id}" name="user_id">
+                        <button type="submit">UnFollow</button>
+                    </form>
+                    <form method="post" action="/users/account">
+                        <input type="hidden" th:value="${userFollowing.id}" name="user_id">
+                        <button  type="submit">Show Account</button>
+                    </form>
+                </div>
+            </li>
+
+        </div>
+
+    </ul>
     </br></br>
     <p th:text = "'************************* '+  ${username} + ' Posts ***************************'"></p>
     </br></br>
 
 </ul>
+
+
 <ul th:each="post: ${postsList}">
     <div class="user">
         <li>

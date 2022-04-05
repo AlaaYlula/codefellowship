@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users Posts</title>
+    <link th:href="@{/style.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+.w3-button {width:150px; }
+</style>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+</br></br>
+
+<ul th:each="post: ${postsList}">
+    <div class="user">
+        <li>
+
+            <div class="container">
+                <label>User: </label><span th:text="${post.AppUser.username}"></span></br>
+                <label>Body: </label><span th:text="${post.body}"></span></br>
+                <label>Date: </label><span th:text="${#temporals.format(post.postDate, 'dd-MM-yyyy HH:mm')}"></span></br>
+                <form method="post" action="/users/account">
+                    <input type="hidden" th:value="${post.AppUser.id}" name="user_id">
+                    <button type="submit">Show Account</button>
+                </form>
+            </div>
+        </li>
+
+    </div>
+    <p>**********************************************************</p>
+</ul>
+</body>
+</html>
