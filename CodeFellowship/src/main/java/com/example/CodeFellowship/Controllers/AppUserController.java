@@ -8,8 +8,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -111,24 +113,42 @@ public class AppUserController {
     /*
     you can select  all user in the application and show  their information
      */
-    @GetMapping("/users")
-    public String GetUser(Model model){
+//    @GetMapping("/users")
+//    public String GetUser(Model model){
+//        model.addAttribute("usersList",appUserRepository.findAll());
+//        final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+//        model.addAttribute("username",currentUser);
+//
+//        return "info";
+//    }
+//    @PostMapping("/users")
+//    public String GetUserDetails(@RequestParam Integer userId, Model model) {
+//        AppUser foundUser = appUserRepository.findById(userId).orElseThrow();
+//        model.addAttribute("user1", foundUser);
+//        model.addAttribute("usersList",appUserRepository.findAll());
+//        final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+//        model.addAttribute("username",currentUser);
+//        return "info";
+//    }
+    @GetMapping("/users/{id}")
+    public String GetUser(@PathVariable int id , Model model){
         model.addAttribute("usersList",appUserRepository.findAll());
         final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("username",currentUser);
+        AppUser foundUser = appUserRepository.findById(id);
+        model.addAttribute("user1", foundUser);
 
         return "info";
     }
     @PostMapping("/users")
-    public String GetUserDetails(@RequestParam Integer userId, Model model) {
+    public RedirectView GetUserDetails(@RequestParam Integer userId, Model model) {
         AppUser foundUser = appUserRepository.findById(userId).orElseThrow();
         model.addAttribute("user1", foundUser);
         model.addAttribute("usersList",appUserRepository.findAll());
         final String currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addAttribute("username",currentUser);
-        return "info";
+        return new RedirectView("/users/"+userId);
     }
-
     ////////////////////////////// Task 18 //////////////////////////////
     /////////////////////////////////////////// All Users  /////////////////////////////////
 
